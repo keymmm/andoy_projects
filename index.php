@@ -33,12 +33,12 @@
         </div>
 
         <div class="hidden md:flex items-center space-x-6 " id="navbar-links">
-         <a class="py-4 px-2  <?php if($current_page === '/magdugo'){
+         <a class="py-4 px-2  <?php if($current_page === '/index.php'){
                 echo 'text-green-500';
             } else { echo 'text-green-500';} ?>  font-semibold hover:text-green-500 transition duration-300 " href="">
           Home
          </a>
-         <a class="py-4 px-2 rounded-lg text-gray-500 font-semibold hover:text-green-500 transition duration-300" href="#">
+         <a class="py-4 px-2 rounded-lg text-gray-500 font-semibold hover:text-green-500 transition duration-300" href="menu.php">
           Menu
          </a>
          <a class="py-4 px-2 text-gray-500 font-semibold hover:text-green-500 transition duration-300" href="#">
@@ -50,14 +50,13 @@
         </div>
        </div>
        
-        
-    
+       <!-- display this if user is login -->
        <?php if (isset($_SESSION['isLogin']) && $_SESSION['isLogin'] === true){ ?>
        
         <div class="relative py-3" >
         <button id="userMenuButton" class="flex items-center space-x-2">
-            <img alt="User Avatar" class="h-8 w-8 rounded-full" height="30" src="https://storage.googleapis.com/a1aa/image/MhOWhzskvkraFN4R8Ir0PAEi0nJQfFF5M6b1ZAXRhpBPSw4JA.jpg" width="30"/>
-            <span>Guest</span>
+            <img alt="User Avatar" class="h-8 w-8 rounded-full" height="30" src="image/home/Screenshot 2024-11-16 152017.png" width="30"/>
+            <span><?= $_SESSION['name']; ?></span>
             <i class="fas fa-chevron-down"></i>
         </button>
         <div id="userMenu" class="hidden absolute right-0 mt-2 w-48 bg-white border rounded-lg shadow-lg">
@@ -66,8 +65,7 @@
             <a class="block px-4 py-2 text-gray-700 hover:bg-gray-100" href="logout.php">Logout</a>
         </div>
     
- 
-            
+        <!-- display this  is user is not login -->
         <?php } else { ?> 
 
             <div class="hidden md:flex items-center space-x-3 ">
@@ -255,19 +253,19 @@
       <a class="flex items-center py-4 px-2" href="#">
        <img alt="Logo of the food ordering service" class="h-8 w-8 mr-2" height="50" src="https://storage.googleapis.com/a1aa/image/Om66ukaugoKWPhemHlnzfuy8tilKlijPfAeZKIeYVU1NWtJeE.jpg" width="50"/>
        <span class="font-semibold text-gray-500 text-lg">
-        Foodie
+        Diwata
        </span>
       </a>
       <p class="mt-4 text-gray-600">
-       © 2023 Foodie. All rights reserved.
+       © <?= date('Y')?> Diwata. All rights reserved.
       </p>
      </div>
      <div class="flex space-x-4 mt-4 md:mt-0">
-      <a class="text-gray-500 hover:text-green-500 transition duration-300" href="#">
+      <a class="text-gray-500 hover:text-green-500 transition duration-300" href="https://web.facebook.com/quem.magdugo.7927">
        <i class="fab fa-facebook-f">
        </i>
       </a>
-      <a class="text-gray-500 hover:text-green-500 transition duration-300" href="#">
+      <a class="text-gray-500 hover:text-green-500 transition duration-300" href="">
        <i class="fab fa-twitter">
        </i>
       </a>
@@ -283,6 +281,7 @@
     </div>
    </div>
   </footer>
+
   <script>
    const btn = document.querySelector("button.mobile-menu-button");
         const menu = document.querySelector(".mobile-menu");
@@ -293,9 +292,9 @@
             navbarLinks.classList.toggle("hidden");
         });
 
-        
+    //drop down for profile   
     document.getElementById('userMenuButton').addEventListener('click', function() {
-        var userMenu = document.getElementById('userMenu');
+        let userMenu = document.getElementById('userMenu');
         userMenu.classList.toggle('hidden');
     });
 

@@ -40,6 +40,7 @@
 <?php
  require 'db_connection/connection.php';
 
+    $errormsg = '';
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['create-account'])) {
         // Get the POST data
         $name = $_POST['name'];
@@ -55,21 +56,23 @@
             exit();
         }
 
-        // Step 1: Check if the email already exists in the database
+        // Check if the email already exists in the database
         $checkQuery = "SELECT email FROM tbl_customers WHERE email = ?";
         
         // Prepare the query to check for existing email
         if ($stmt = $conn->prepare($checkQuery)) {
-            $stmt->bind_param("s", $email); // Bind the email parameter
+            $stmt->bind_param("s", $email);
             $stmt->execute();
             $stmt->store_result();
 
             // If the email already exists, display an error message
             if ($stmt->num_rows > 0) {
-                echo "<script>alert('This email is already exists!')</script>";
+                $errormsg = "<script>alert('This email is already exists!')</script>";
+                // echo "<script>alert('This email is already exists!')</script>";
                 $stmt->close();
+
             } else {
-                // Step 2: Email doesn't exist, proceed with inserting the new user
+                // Email doesn't exist, proceed with inserting the new user
                 $sqlQuery = "INSERT INTO tbl_customers (name, email, password) VALUES (?, ?, ?)";
 
                 // Prepare the insert query
@@ -78,13 +81,15 @@
 
                     if ($stmt->execute()) {
                         echo "<script>alert('succefully created')</script>";
-                        header("location : login.php");
+                       
+                        
                     }
                     $stmt->close();
                 }
             }
         }
     }
+    
 ?>
 
 
