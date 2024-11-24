@@ -1,14 +1,11 @@
 <?php 
+
     session_start();
-
-// Unset all session variables
-    $_SESSION = array();
-
-// Destroy the session
+    session_unset();
     session_destroy();
 
-// Redirect to the home page or login page after logout
-    header("Location: index.php"); // Or wherever you want to redirect after logout
+    // Redirect to the home page after logout
+    header("Location: index.php");  
     exit;
 
 
