@@ -2,7 +2,7 @@
 global $conn;
 require 'db_connection/connection.php';
 
-$sqlQuery = "SELECT a.menu_id,a.name, b.name as category_name, a.price FROM tbl_menu a
+$sqlQuery = "SELECT a.menu_id, a.name, a.description,  b.name as category_name, a.price FROM tbl_menu a
         INNER JOIN tbl_categories b ON a.category_id = b.category_id";
 
 $result = $conn->query($sqlQuery);
@@ -10,6 +10,31 @@ $result = $conn->query($sqlQuery);
 ?>
 
 <div class="p-4 sm:ml-64">
+
+
+    <div class="flex justify-between items-center mb-6">
+        <!-- Search Form -->
+        <form method="POST" action="" class="relative">
+            <input
+                name="search_term"
+                value=""
+                class="border-2 border-gray-300 rounded-lg py-2 px-4 w-64"
+                placeholder="Search menu"
+                type="text"
+            />
+            <button type="submit" name="search" class="absolute right-3 top-2 text-gray-500">
+                  <i class="fa-solid fa-magnifying-glass"></i>
+            </button>
+        </form>
+
+        <a href="add-menu.php">
+            <button type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Add Menu </button> 
+        </a>
+    </div>
+    
+
+
+
     <div class="p-4 border-2  border-gray-200 rounded-lg dark:border-gray-700">
 
 
@@ -22,6 +47,9 @@ $result = $conn->query($sqlQuery);
                     </th>
                     <th scope="col" class="px-6 py-3">
                         name
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        Description
                     </th>
                     <th scope="col" class="px-6 py-3">
                         Category
@@ -40,6 +68,7 @@ $result = $conn->query($sqlQuery);
                 while($row = $result->fetch_assoc()) {?>
                 <td class="px-6 py-4  text-gray-900 whitespace-nowrap dark:text-white"><?= $row['menu_id'] ?></td>
                 <td class="px-6 py-4  text-gray-900 whitespace-nowrap dark:text-white"><?= $row['name'] ?></td>
+                <td class="px-6 py-4  text-gray-900 whitespace-nowrap dark:text-white"><?= $row['description'] ?></td>
                 <td class="px-6 py-4  text-gray-900 whitespace-nowrap dark:text-white"><?= $row['category_name'] ?></td>
                 <td class="px-6 py-4  text-gray-900 whitespace-nowrap dark:text-white"><?= $row['price'] ?></td>
                 <td class="flex px-4 py-4">
@@ -56,5 +85,4 @@ $result = $conn->query($sqlQuery);
         </div>
 
     </div>
-    <script src="https://kit.fontawesome.com/21b39866b0.js" crossorigin="anonymous"></script>
 </div>
