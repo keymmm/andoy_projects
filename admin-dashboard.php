@@ -1,14 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://kit.fontawesome.com/21b39866b0.js" crossorigin="anonymous"></script>
-
- 
-</head>
+<?php require 'views/partials/head.php' ?>
 <body>
 <button
         data-drawer-target="sidebar-multi-level-sidebar"
@@ -106,7 +96,7 @@ if($_SERVER['REQUEST_METHOD'] == 'GET' and isset($_GET['category'])){
     require 'add-category.php';
 }
 if($_SERVER['REQUEST_METHOD'] == 'GET' and isset($_GET['menu'])){
-    require 'views/partials/menu.view.php';
+    require 'views/partials/admin_menu.view.php';
 }
 
 ?>

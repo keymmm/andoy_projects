@@ -2,11 +2,10 @@
 session_start();
 require 'db_connection/connection.php';
 
-// Initialize variables
 $searchTerm = '';
 
 if (isset($_POST['search']) && !empty($_POST['search_term'])) {
-    $searchTerm = htmlspecialchars($_POST['search_term']); // Sanitize user input
+    $searchTerm = htmlspecialchars($_POST['search_term']); 
     $sqlQuery = "SELECT * FROM tbl_menu WHERE name LIKE ? OR description LIKE ?";
     $stmt = $conn->prepare($sqlQuery);
     $searchPattern = "%" . $searchTerm . "%";
@@ -63,21 +62,21 @@ if (isset($_POST['search']) && !empty($_POST['search_term'])) {
         while ($row = $result->fetch_assoc()) { ?>
             <div class="bg-white p-4 rounded-lg shadow-lg">
                 <img
-                    alt="<?= htmlspecialchars($row['name']); ?>"
+                    alt="<?= $row['name'] ?>"
                     class="w-full h-48 object-cover rounded-t-lg"
                     src="image/home/Screenshot 2024-11-16 152017.png"
                 />
                 <div class="p-4">
-                    <h3 class="text-xl font-bold mb-2"><?= htmlspecialchars($row['name']); ?></h3>
-                    <p class="text-gray-700 mb-4"><?= htmlspecialchars($row['description']); ?></p>
+                    <h3 class="text-xl font-bold mb-2"><?= $row['name'] ?></h3>
+                    <p class="text-gray-700 mb-4"><?= $row['description'] ?></p>
                     <div class="flex space-x-24">
-                    <p class="text-blue-600 font-bold">$<?= htmlspecialchars($row['price']); ?></p>
+                    <p class="text-blue-600 font-bold">$<?= $row['price'] ?></p>
 
                     <form method="POST" action="">
-                        <input type="hidden" name="item_id" value="<?= htmlspecialchars($row['menu_id']); ?>">
-                        <input type="hidden" name="item_name" value="<?= htmlspecialchars($row['name']); ?>">
-                        <input type="hidden" name="item_price" value="<?= htmlspecialchars($row['price']); ?>">
-                        <input type="hidden" name="item_description" value="<?= htmlspecialchars($row['description']); ?>">
+                        <input type="hidden" name="item_id" value="<?= $row['menu_id'] ?>">
+                        <input type="hidden" name="item_name" value="<?= $row['name'] ?>">
+                        <input type="hidden" name="item_price" value="<?= $row['price'] ?>">
+                        <input type="hidden" name="item_description" value="<?= $row['description'] ?>">
                         <button type="submit" class="text-white bg-green-700 hover:bg-green-800 font-medium rounded-full text-sm px-5 py-2.5">
                             Add to Cart
                         </button>

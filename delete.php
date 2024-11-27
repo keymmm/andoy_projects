@@ -9,7 +9,7 @@ if (isset($_GET['id'])) {
     $stmt->bind_param("i", $id);
 
     if ($stmt->execute()) {
-        header("Location: sample.php?add");
+        header("Location: admin-dashboard.php?menu");
         exit();
     } else {
         echo "<script> alert('Error deleting record:  . $conn->error ') </script>";

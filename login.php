@@ -17,13 +17,11 @@
         $stmt->bind_param('ss', $email, $password);
 
         if($stmt->execute()){
-    
-        // Get the result
-        $result = $stmt->get_result();
-        $user = $result->fetch_assoc();
-        
+            $result = $stmt->get_result();
+            $user = $result->fetch_assoc();
+
         if ($user) {
-            // Set session variables
+
             $_SESSION['user_id'] = $user['customer_id'];
             $_SESSION['name'] = $user['name'];
             $_SESSION['email'] = $user['email'];

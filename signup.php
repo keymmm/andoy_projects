@@ -42,6 +42,8 @@
 <?php
  require 'db_connection/connection.php';
 
+    
+
     $errormsg = '';
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['create-account'])) {
         // Get the POST data
