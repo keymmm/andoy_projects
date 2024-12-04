@@ -1,5 +1,5 @@
 
-<?php 
+<?php
 
     require 'db_connection/connection.php';
 
@@ -18,28 +18,30 @@
         $stmt->execute();
     }
 
+
+
     if($_SERVER['REQUEST_METHOD'] == 'POST' and isset($_POST['submit'])){
         $name = $_POST['menu_name'];
         $category_id = $_POST['category'];
-        $price = $_POST['price'];
+        $price = floatval($_POST['price']);
         $description = $_POST['description'];
 
         addNewMenu($conn, $name, $description, $category_id, $price);
-        header("location: admin-dashboard.php?menu");
+        header("location: admin-dashboard.php?section=menu");
     }
 
 
 ?>
 
 
-<?php require 'views/partials/head.php'; ?> 
+<?php require 'views/partials/head.php'; ?>
 <body class="bg-gray-100">
     <div class="min-h-screen flex flex-col">
         <!-- Main Content -->
         <main class="flex-grow container mx-auto px-6 py-8">
             <div class="bg-white p-6 rounded-lg shadow-md">
                 <h2 class="text-2xl font-bold mb-6">Add New Menu Item</h2>
-                <form method="post">
+                <form method="post" enctype="multipart/form-data">
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
                             <label for="menu" class="block text-gray-700">Name</label>
@@ -49,21 +51,19 @@
                              <label for="category" class="block text-gray-700">Category</label>
                              <select id="category" name="category" required class="w-full mt-2 p-2 border border-gray-300 rounded-md">
                                 <option value="">Select category</option>
-                        <?php  
-                                 $category = selectCategory($conn);
-                    
-                                    while($row = $category->fetch_assoc()){ ?>                                      
+                        <?php $category = selectCategory($conn);
+                                    while($row = $category->fetch_assoc()) { ?>
                                         <option value="<?= $row['category_id'] ?>" ><?= $row['name'] ?></option>
                                 <?php } ?>  
                                </select>  
                         </div>
                         <div>
                             <label for="price" class="block text-gray-700">Price</label>
-                            <input type="number" id="price" name="price" class="w-full mt-2 p-2 border border-gray-300 rounded-md" placeholder="Enter price" required>
+                            <input type="number" id="price" name="price" class="w-full mt-2 p-2 border border-gray-300 rounded-md" placeholder="Enter price" required step="any">
                         </div>
                         <div>
                             <label for="image" class="block text-gray-700">Menu Image</label>
-                            <input type="file" id="image" class="w-full mt-2 p-2 border border-gray-300 rounded-md">
+                            <input type="file" id="image" name="menu_image" class="w-full mt-2 p-2 border border-gray-300 rounded-md">
                         </div>
                         <div class="md:col-span-2">
                             <label for="description" class="block text-gray-700">Description</label>

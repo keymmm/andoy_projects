@@ -1,8 +1,13 @@
 <?php
 
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
 function isActive($page, $current_page) {
     return $page === $current_page ? 'text-green-500' : 'text-gray-500';
 }
+
 $current_page = $_SERVER['REQUEST_URI'];
 
 ?>
@@ -12,7 +17,6 @@ $current_page = $_SERVER['REQUEST_URI'];
        <div class="flex space-x-10 ">
         <div>
          <a class="flex items-center py-4 px-2" href="#">
-          <!-- <img alt="Logo of the food ordering service" class="h-8 w-8 mr-2" height="50" src="https://storage.googleapis.com/a1aa/image/Om66ukaugoKWPhemHlnzfuy8tilKlijPfAeZKIeYVU1NWtJeE.jpg" width="50"/> -->
           <span class="font-bold text-gray-500 text-lg ">
            DIWATA
           </span>
@@ -29,7 +33,7 @@ $current_page = $_SERVER['REQUEST_URI'];
          <a class="py-4 px-2 <?= isActive('/magdugo/about.php',$current_page) ?> text-gray-500 font-semibold hover:text-green-500 transition duration-300" href="#">
           About
          </a>
-         <a class="py-4 px-2  <?= isActive('/magdugo/contact.php',$current_page) ?> text-gray-500 font-semibold hover:text-green-500 transition duration-300" href="#">
+         <a class="py-4 px-2  <?= isActive('/magdugo/contactUs.php',$current_page) ?> text-gray-500 font-semibold hover:text-green-500 transition duration-300" href="contactUs.php">
           Contact
          </a>
         </div>
@@ -45,7 +49,7 @@ $current_page = $_SERVER['REQUEST_URI'];
 
           <div class="relative py-3" >
         <button id="userMenuButton" class="flex items-center space-x-2">
-            <img alt="User Avatar" class="h-8 w-8 roundeAd-full" height="30" src="image/home/Screenshot 2024-11-16 152017.png" width="30"/>
+            <img alt="User Avatar" class="h-8 w-8 rounded-full" height="30" src="image/home/Screenshot 2024-11-16 152017.png" width="30"/>
             <span><?= $_SESSION['name']; ?></span>
             <i class="fas fa-chevron-down"></i>
         </button>
@@ -83,3 +87,20 @@ $current_page = $_SERVER['REQUEST_URI'];
       </div>
      </div>
     </nav>
+
+<script>
+    const btn = document.querySelector("button.mobile-menu-button");
+    const menu = document.querySelector(".mobile-menu");
+    const navbarLinks = document.getElementById("navbar-links");
+
+    btn.addEventListener("click", () => {
+        menu.classList.toggle("hidden");
+        navbarLinks.classList.toggle("hidden");
+    });
+
+    // Dropdown for profile
+    document.getElementById('userMenuButton').addEventListener('click', function () {
+        let userMenu = document.getElementById('userMenu');
+        userMenu.classList.toggle('hidden');
+    });
+</script>

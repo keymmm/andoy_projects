@@ -1,5 +1,5 @@
 <?php  
-session_start();
+
 require 'db_connection/connection.php';
 
 $searchTerm = '';
@@ -13,32 +13,16 @@ if (isset($_POST['search']) && !empty($_POST['search_term'])) {
     $stmt->execute();
     $result = $stmt->get_result();
 } else {
-    // Default query to show all items
     $sqlQuery = "SELECT * FROM tbl_menu";
     $result = $conn->query($sqlQuery);
 }
 ?>
-
-<html lang="en">
-<head>
-    <meta charset="utf-8"/>
-    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-    <title>Diwata</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&amp;display=swap" rel="stylesheet"/>
-    <script src="https://kit.fontawesome.com/21b39866b0.js" crossorigin="anonymous"></script>
-    <style>
-        body {
-            font-family: 'Poppins', sans-serif;
-        }
-    </style>
-</head>
-<body>
+<?php require 'views/partials/head.php' ?>
+<body class="bg-gray-100">
 <!-- Navbar -->
 <?php require 'views/partials/navbar.php'; ?>
 
-<main class="container mx-auto py-8">
+<main class="container mx-auto py-8 p-14">
     <div class="flex justify-between items-center mb-6">
         <!-- Search Form -->
         <form method="POST" action="" class="relative">
@@ -57,60 +41,46 @@ if (isset($_POST['search']) && !empty($_POST['search_term'])) {
 
     <!-- Menu Grid -->
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-    <?php 
-    if ($result->num_rows > 0) {
-        while ($row = $result->fetch_assoc()) { ?>
-            <div class="bg-white p-4 rounded-lg shadow-lg">
-                <img
-                    alt="<?= $row['name'] ?>"
-                    class="w-full h-48 object-cover rounded-t-lg"
-                    src="image/home/Screenshot 2024-11-16 152017.png"
-                />
-                <div class="p-4">
-                    <h3 class="text-xl font-bold mb-2"><?= $row['name'] ?></h3>
-                    <p class="text-gray-700 mb-4"><?= $row['description'] ?></p>
-                    <div class="flex space-x-24">
-                    <p class="text-blue-600 font-bold">$<?= $row['price'] ?></p>
-
-                    <form method="POST" action="">
-                        <input type="hidden" name="item_id" value="<?= $row['menu_id'] ?>">
-                        <input type="hidden" name="item_name" value="<?= $row['name'] ?>">
-                        <input type="hidden" name="item_price" value="<?= $row['price'] ?>">
-                        <input type="hidden" name="item_description" value="<?= $row['description'] ?>">
-                        <button type="submit" class="text-white bg-green-700 hover:bg-green-800 font-medium rounded-full text-sm px-5 py-2.5">
+     <?php 
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) { ?>
+                <!-- display the menu -->
+                <div class="bg-white rounded-lg shadow-lg p-4">
+                    <img
+                        alt="Placeholder image for Veggie Wrap"
+                        class="w-full h-48 object-cover rounded-t-lg"
+                        height="400"
+                        src="image/home/Screenshot 2024-11-16 152017.png"
+                        width="600" />
+                        <div class="p-4">
+                        <h2 class="text-xl font-bold mb-2"><?= $row['name'] ?></h2>
+                        <p class="text-gray-700 mb-4">
+                            <?= $row['description'] ?>
+                        </p>
+                        <p class="text-lg font-bold mb-4">₱<?= $row['price'] ?></p>
+                        <button class="w-full bg-green-500 text-white hover:bg-green-700 py-2 rounded-lg">
                             Add to Cart
                         </button>
-                    </form>
- 
-                    
+                        </div>
                 </div>
-            </div>
-        <?php }
-    } else { ?>
+
+            
+         <?php }
+        } else { ?>
         <p class="text-gray-500">No menu items found for "<?= htmlspecialchars($searchTerm); ?>"</p>
-    <?php } ?>
+        <?php } ?> 
+    
     </div>
+    
+    
 </main>
 
+
+
+
 <!-- Footer -->
-<!-- <?php require 'views/partials/footer.php'; ?> -->
+<?php require 'views/partials/footer.php'; ?>
 
-<script>
-    const btn = document.querySelector("button.mobile-menu-button");
-    const menu = document.querySelector(".mobile-menu");
-    const navbarLinks = document.getElementById("navbar-links");
-
-    btn.addEventListener("click", () => {
-        menu.classList.toggle("hidden");
-        navbarLinks.classList.toggle("hidden");
-    });
-
-    // Dropdown for profile
-    document.getElementById('userMenuButton').addEventListener('click', function () {
-        let userMenu = document.getElementById('userMenu');
-        userMenu.classList.toggle('hidden');
-    });
-</script>
 
 </body>
 </html>

@@ -1,9 +1,5 @@
-<html>
-<head>
-    <title>Sign up</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body class="bg-green-500 flex items-center justify-center h-screen">
+<?php require 'views/partials/head.php' ?>
+<body class="bg-green-200 flex items-center justify-center h-screen">
 
     <div class="bg-white p-10 rounded-lg shadow-md w-full max-w-md h-auto">
         <h2 class="text-2xl font-bold mb-6">Create your account</h2>
@@ -71,7 +67,7 @@
 
             // If the email already exists, display an error message
             if ($stmt->num_rows > 0) {
-                $errormsg = "<script>alert('This email is already exists!')</script>";
+                echo "<script>alert('This email is already exists!')</script>";
                 $stmt->close();
 
             } else {
@@ -84,8 +80,9 @@
 
                     if ($stmt->execute()) {
                         echo "<script>alert('succefully created')</script>";
+                    
                     }
-                    $stmt->close();
+                 
                 }
             }
         }

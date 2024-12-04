@@ -14,7 +14,7 @@ $stmt = $conn->prepare($sqlQuery);
 $stmt->bind_param('ss',$category_name,$description );
 
 if($stmt->execute()){
-    echo  "<script>alert('Successfully Added')</script>";
+    header("Location:admin-dashboard.php?section=category");
 }else{
     echo  "<script>alert('Error while adding .. please try again')</script>";
 }

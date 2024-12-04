@@ -1,13 +1,12 @@
 
 
-<footer class="bg-white py-8">
+<footer class="bg-white py-8  shadow-lg">
    <div class="max-w-6xl mx-auto px-4">
     <div class="flex flex-col md:flex-row justify-between items-center">
      <div class="text-center md:text-left">
       <a class="flex items-center py-4 px-2" href="#">
-       <img alt="Logo of the food ordering service" class="h-8 w-8 mr-2" height="50" src="https://storage.googleapis.com/a1aa/image/Om66ukaugoKWPhemHlnzfuy8tilKlijPfAeZKIeYVU1NWtJeE.jpg" width="50"/>
        <span class="font-semibold text-gray-500 text-lg">
-        Diwata
+        Diwata Pares
        </span>
       </a>
       <p class="mt-4 text-gray-600">

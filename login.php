@@ -1,7 +1,8 @@
-<?php    session_start(); ?>
+
 
 
 <?php
+    session_start(); 
     $error = '';
  
     require 'db_connection/connection.php';
@@ -31,15 +32,19 @@
             header('Location: index.php');
             exit;
         } else {
-            $error =  "Invalid username or password";
+            $error =  "Invalid Credentials";
             
         }
-    }
+
+
     
-        $stmt->close();
+        
+
+
     }
+}
     
-    $conn->close();
+  
     
     
 

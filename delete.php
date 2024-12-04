@@ -9,14 +9,12 @@ if (isset($_GET['id'])) {
     $stmt->bind_param("i", $id);
 
     if ($stmt->execute()) {
-        header("Location: admin-dashboard.php?menu");
+        header("Location: admin-dashboard.php?section=menu");
         exit();
     } else {
-        echo "<script> alert('Error deleting record:  . $conn->error ') </script>";
+        echo "<script> alert('Error deleting record') </script>";
     }
 
-    $stmt->close();
 }
 
-$conn->close();
 ?>
